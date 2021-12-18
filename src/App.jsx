@@ -71,7 +71,7 @@ let App = ({ store }) => (
     h="100vh"
     fontFamily="monospace"
     sx={{
-      "> *:not(hr)": { flex: 1, p: 4, h: "100%", overflow: "scroll" },
+      "> *:not(hr)": { flex: 1, p: 3, h: "100%", overflow: "scroll" },
       a: {
         bg: "yellow.100",
         boxShadow: "0 1px 2px 0px #ECC94B",

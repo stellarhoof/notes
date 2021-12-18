@@ -14,6 +14,7 @@ unprotect(store)
 
 onSnapshot(store, (x) => storage.setItem("store", JSON.stringify(x)))
 
+
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
