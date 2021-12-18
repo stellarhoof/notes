@@ -1,4 +1,262 @@
-var T=Object.defineProperty,B=Object.defineProperties;var O=Object.getOwnPropertyDescriptors;var c=Object.getOwnPropertySymbols;var x=Object.prototype.hasOwnProperty,b=Object.prototype.propertyIsEnumerable;var w=(e,t,a)=>t in e?T(e,t,{enumerable:!0,configurable:!0,writable:!0,value:a}):e[t]=a,m=(e,t)=>{for(var a in t||(t={}))x.call(t,a)&&w(e,a,t[a]);if(c)for(var a of c(t))b.call(t,a)&&w(e,a,t[a]);return e},u=(e,t)=>B(e,O(t));var v=(e,t)=>{var a={};for(var l in e)x.call(e,l)&&t.indexOf(l)<0&&(a[l]=e[l]);if(e!=null&&c)for(var l of c(e))t.indexOf(l)<0&&b.call(e,l)&&(a[l]=e[l]);return a};import{f as s,p as h,o as P,j as k,F as j,a as d,C as L,S as g,B as R,W as A,R as I,b as N,c as z,d as E,t as o,u as M,e as _,g as D,h as G,i as J}from"./vendor.304b2213.js";const W=function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))l(r);new MutationObserver(r=>{for(const i of r)if(i.type==="childList")for(const n of i.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&l(n)}).observe(document,{childList:!0,subtree:!0});function a(r){const i={};return r.integrity&&(i.integrity=r.integrity),r.referrerpolicy&&(i.referrerPolicy=r.referrerpolicy),r.crossorigin==="use-credentials"?i.credentials="include":r.crossorigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function l(r){if(r.ep)return;r.ep=!0;const i=a(r);fetch(r.href,i)}};W();let f={template:Symbol("template"),field:Symbol("field")},q=e=>e.startsWith("{{#")?f.template:f.field,p=e=>s.replace(/{{#?\s*([\w\/:]+)\s*}}/g,(t,a)=>s.getOr(s.constant(t),q(t),e)(a,t)),S=e=>`{{${e.join(":")}}}`,H=e=>`{{#${e}}}`,K=e=>{let t=[],a=(r="")=>h.isAbsolute(r)?r:h.join(h.dirname(s.last(t)||"/"),r),l={[f.field]:r=>S([...t,a(r)]),[f.template]:(r,i)=>{let n=a(r);t.push(n);let F=p(l)(e[n]);return t.pop(),F||H(n)}};return p(l)},V=(e={})=>p({[f.field]:t=>(e[t]=s.add(e[t],1),S([t,e[t]]))}),$=s.flow(s.split(":"),s.nth(-2)),Q=(e,t)=>p({[f.field]:(a,l)=>{let r=$(a),i=s.has(r,t);return`<a ${i?"href":""} data-exists=${i} data-path=${a}>${l}</a>`},[f.template]:(a,l)=>{let r=s.has(a,e);return`<a ${r?"href":""} data-exists=${r} data-path=${a}>${l}</a>`}}),U=(e,t)=>s.flow(K(e),V(),Q(e,t)),X=new Intl.ListFormat("en",{style:"long",type:"conjunction"}),Y=e=>p({[f.field]:(t,a)=>{let l=e.get(t);return s.isEmpty(l)?a:s.isArray(l)?X.format(l):l}}),Z=async()=>{let e={templates:{},fields:{}},t=new TextDecoder;for(let a of await A({recursive:!0})){let l=s.head(a.name.match("(field|template)$"));if(l){let r=a.webkitRelativePath.replace(/\w+(.*)\.(field|template)$/,(i,n)=>n);e[`${l}s`][r]=t.decode(await a.arrayBuffer())}}return e},ee=e=>{let[t,...a]=s.map(l=>s.trim(l,`
-`),s.split(`
--
-`,e));return{type:t,options:a}},te=r=>{var i=r,{field:e,type:t,options:a}=i,l=v(i,["field","type","options"]);return t==="exclusive"?d(I,u(m({size:"sm"},l),{children:d(g,{children:s.map(n=>d(N,{value:n,children:n},n),a)})})):d(z,u(m({size:"sm"},l),{children:d(g,{children:s.map(n=>d(E,{value:n,children:n},n),a)})}))},ae=({store:e})=>k(j,{w:"100vw",h:"100vh",fontFamily:"monospace",sx:{"> *:not(hr)":{flex:1,p:3,h:"100%",overflow:"scroll"},a:{bg:"yellow.100",boxShadow:"0 1px 2px 0px #ECC94B","&[data-exists=true]":{cursor:"pointer",":hover":{bg:"yellow.200"}},"&[data-exists=false]":{bg:"red.100",boxShadow:"0 1px 2px 0px #FC8181"},[`&[data-path="${e.field}"]`]:{bg:"green.100",border:"10px black",boxShadow:"0 1px 2px 0px #48BB78",":hover":{bg:"green.200"}}}},children:[d(L,{whiteSpace:"pre-wrap",dangerouslySetInnerHTML:{__html:Y(e.data)(e.template)},onClick:t=>t.target.tagName==="A"&&t.target.dataset.exists==="true"&&(e.field=t.target.dataset.path)}),k(g,{children:[d(R,{size:"sm",onClick:async()=>{let{fields:t,templates:a}=await Z();e.templates=a,e.fields=t,e.template=U(a,t)("{{#nota}}")},children:"Reload files"}),d(te,m({value:e.data.get(e.field),onChange:t=>e.data.set(e.field,t)},ee(s.get($(e.field),e.fields))),e.field)]})]});var le=P(ae),re=o.model({data:o.map(o.union(o.string,o.array(o.string))),template:o.maybe(o.string),field:o.maybe(o.string),templates:o.maybe(o.frozen(o.map(o.string))),fields:o.maybe(o.frozen(o.map(o.string)))});let C=window.localStorage,y=re.create(JSON.parse(C.getItem("store"))||void 0);M(y);_(y,e=>C.setItem("store",JSON.stringify(e)));D.render(d(G.StrictMode,{children:d(J,{children:d(le,{store:y})})}),document.getElementById("root"));
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __objRest = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
+import { f as fp, p as pathBrowserify, o as observer, j as jsxs, F as Flex, a as jsx, C as Code, S as Stack, B as Button, W, R as RadioGroup, b as Radio, c as CheckboxGroup, d as Checkbox, t as types, u as unprotect, e as onSnapshot, g as ReactDOM, h as React, i as ChakraProvider } from "./vendor.304b2213.js";
+const p = function polyfill() {
+  const relList = document.createElement("link").relList;
+  if (relList && relList.supports && relList.supports("modulepreload")) {
+    return;
+  }
+  for (const link of document.querySelectorAll('link[rel="modulepreload"]')) {
+    processPreload(link);
+  }
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type !== "childList") {
+        continue;
+      }
+      for (const node of mutation.addedNodes) {
+        if (node.tagName === "LINK" && node.rel === "modulepreload")
+          processPreload(node);
+      }
+    }
+  }).observe(document, { childList: true, subtree: true });
+  function getFetchOpts(script) {
+    const fetchOpts = {};
+    if (script.integrity)
+      fetchOpts.integrity = script.integrity;
+    if (script.referrerpolicy)
+      fetchOpts.referrerPolicy = script.referrerpolicy;
+    if (script.crossorigin === "use-credentials")
+      fetchOpts.credentials = "include";
+    else if (script.crossorigin === "anonymous")
+      fetchOpts.credentials = "omit";
+    else
+      fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  function processPreload(link) {
+    if (link.ep)
+      return;
+    link.ep = true;
+    const fetchOpts = getFetchOpts(link);
+    fetch(link.href, fetchOpts);
+  }
+};
+p();
+let tokens = {
+  template: Symbol("template"),
+  field: Symbol("field")
+};
+let tokenType = (token) => token.startsWith("{{#") ? tokens.template : tokens.field;
+let replaceTokens = (replacers) => fp.replace(/{{#?\s*([\w\/:]+)\s*}}/g, (token, value) => fp.getOr(fp.constant(token), tokenType(token), replacers)(value, token));
+let makeFieldToken = (paths) => `{{${paths.join(":")}}}`;
+let makeTemplateToken = (path) => `{{#${path}}}`;
+let expandTemplate = (templates) => {
+  let paths = [];
+  let resolvePath = (value = "") => pathBrowserify.isAbsolute(value) ? value : pathBrowserify.join(pathBrowserify.dirname(fp.last(paths) || "/"), value);
+  let replacers = {
+    [tokens.field]: (path) => makeFieldToken([...paths, resolvePath(path)]),
+    [tokens.template]: (path, token) => {
+      let absolute = resolvePath(path);
+      paths.push(absolute);
+      let result = replaceTokens(replacers)(templates[absolute]);
+      paths.pop();
+      return result || makeTemplateToken(absolute);
+    }
+  };
+  return replaceTokens(replacers);
+};
+let addFieldsCounts = (counts = {}) => replaceTokens({
+  [tokens.field]: (path) => {
+    counts[path] = fp.add(counts[path], 1);
+    return makeFieldToken([path, counts[path]]);
+  }
+});
+let getFieldPath = fp.flow(fp.split(":"), fp.nth(-2));
+let highlightTokens = (templates, fields) => replaceTokens({
+  [tokens.field]: (path, token) => {
+    let fieldPath = getFieldPath(path);
+    let exists = fp.has(fieldPath, fields);
+    let href = exists ? "href" : "";
+    return `<a ${href} data-exists=${exists} data-path=${path}>${token}</a>`;
+  },
+  [tokens.template]: (path, token) => {
+    let exists = fp.has(path, templates);
+    let href = exists ? "href" : "";
+    return `<a ${href} data-exists=${exists} data-path=${path}>${token}</a>`;
+  }
+});
+let processTemplate = (templates, fields) => fp.flow(expandTemplate(templates), addFieldsCounts(), highlightTokens(templates, fields));
+let foo = new Intl.ListFormat("en", { style: "long", type: "conjunction" });
+let renderTemplate = (values) => replaceTokens({
+  [tokens.field]: (path, token) => {
+    let value = values.get(path);
+    if (!fp.isEmpty(value))
+      return fp.isArray(value) ? foo.format(value) : value;
+    return token;
+  }
+});
+let getFiles = async () => {
+  let result = {
+    templates: {},
+    fields: {}
+  };
+  let utf8decoder = new TextDecoder();
+  for (let file of await W({
+    recursive: true
+  })) {
+    let match = fp.head(file.name.match("(field|template)$"));
+    if (match) {
+      let key = file.webkitRelativePath.replace(/\w+(.*)\.(field|template)$/, (_2, path2) => path2);
+      result[`${match}s`][key] = utf8decoder.decode(await file.arrayBuffer());
+    }
+  }
+  return result;
+};
+let parseField = (text) => {
+  let [type, ...options] = fp.map((x) => fp.trim(x, "\n"), fp.split("\n-\n", text));
+  return {
+    type,
+    options
+  };
+};
+let ValuePicker = (_a) => {
+  var _b = _a, {
+    field,
+    type,
+    options
+  } = _b, props = __objRest(_b, [
+    "field",
+    "type",
+    "options"
+  ]);
+  return type === "exclusive" ? /* @__PURE__ */ jsx(RadioGroup, __spreadProps(__spreadValues({
+    size: "sm"
+  }, props), {
+    children: /* @__PURE__ */ jsx(Stack, {
+      children: fp.map((option) => /* @__PURE__ */ jsx(Radio, {
+        value: option,
+        children: option
+      }, option), options)
+    })
+  })) : /* @__PURE__ */ jsx(CheckboxGroup, __spreadProps(__spreadValues({
+    size: "sm"
+  }, props), {
+    children: /* @__PURE__ */ jsx(Stack, {
+      children: fp.map((option) => /* @__PURE__ */ jsx(Checkbox, {
+        value: option,
+        children: option
+      }, option), options)
+    })
+  }));
+};
+let App = ({
+  store: store2
+}) => /* @__PURE__ */ jsxs(Flex, {
+  w: "100vw",
+  h: "100vh",
+  fontFamily: "monospace",
+  sx: {
+    "> *:not(hr)": {
+      flex: 1,
+      p: 3,
+      h: "100%",
+      overflow: "scroll"
+    },
+    a: {
+      bg: "yellow.100",
+      boxShadow: "0 1px 2px 0px #ECC94B",
+      "&[data-exists=true]": {
+        cursor: "pointer",
+        ":hover": {
+          bg: "yellow.200"
+        }
+      },
+      "&[data-exists=false]": {
+        bg: "red.100",
+        boxShadow: "0 1px 2px 0px #FC8181"
+      },
+      [`&[data-path="${store2.field}"]`]: {
+        bg: "green.100",
+        border: "10px black",
+        boxShadow: "0 1px 2px 0px #48BB78",
+        ":hover": {
+          bg: "green.200"
+        }
+      }
+    }
+  },
+  children: [/* @__PURE__ */ jsx(Code, {
+    whiteSpace: "pre-wrap",
+    dangerouslySetInnerHTML: {
+      __html: renderTemplate(store2.data)(store2.template)
+    },
+    onClick: (e) => e.target.tagName === "A" && e.target.dataset["exists"] === "true" && (store2.field = e.target.dataset["path"])
+  }), /* @__PURE__ */ jsxs(Stack, {
+    children: [/* @__PURE__ */ jsx(Button, {
+      size: "sm",
+      onClick: async () => {
+        let {
+          fields,
+          templates
+        } = await getFiles();
+        store2.templates = templates;
+        store2.fields = fields;
+        store2.template = processTemplate(templates, fields)("{{#nota}}");
+      },
+      children: "Reload files"
+    }), /* @__PURE__ */ jsx(ValuePicker, __spreadValues({
+      value: store2.data.get(store2.field),
+      onChange: (x) => store2.data.set(store2.field, x)
+    }, parseField(fp.get(getFieldPath(store2.field), store2.fields))), store2.field)]
+  })]
+});
+var App$1 = observer(App);
+var model = types.model({
+  data: types.map(types.union(types.string, types.array(types.string))),
+  template: types.maybe(types.string),
+  field: types.maybe(types.string),
+  templates: types.maybe(types.frozen(types.map(types.string))),
+  fields: types.maybe(types.frozen(types.map(types.string)))
+});
+let storage = window.localStorage;
+let store = model.create(JSON.parse(storage.getItem("store")) || void 0);
+unprotect(store);
+onSnapshot(store, (x) => storage.setItem("store", JSON.stringify(x)));
+ReactDOM.render(/* @__PURE__ */ jsx(React.StrictMode, {
+  children: /* @__PURE__ */ jsx(ChakraProvider, {
+    children: /* @__PURE__ */ jsx(App$1, {
+      store
+    })
+  })
+}), document.getElementById("root"));
+//# sourceMappingURL=index.eede5dd0.js.map
