@@ -24,7 +24,8 @@
     "mobx-state-tree": "^5.0.5",
     "path-browserify": "^1.0.1",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "striptags": "^3.2.0"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.3.4-fix.0",
