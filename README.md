@@ -1,0 +1,3 @@
+- Handle directories with spaces
+- Handle fields/templates with spaces
+- Have the ability for fields to build their sentences. E.g. "Alex was" vs. "Alex, Yanet, and Ania were".

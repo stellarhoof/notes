@@ -8,8 +8,8 @@
     "serve": "vite preview",
     "predeploy": "vite build",
     "deploy": "gh-pages -d dist",
-    "test": "wtr src/**/*.test.js --node-resolve",
-    "test:watch": "wtr src/**/*.test.js --node-resolve --watch"
+    "test": "wtr src/**/*.test.js",
+    "test:watch": "wtr src/**/*.test.js --watch"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.2",
